@@ -23,7 +23,7 @@
 ;;
 ;; rate-sx.el provides a command for showing currency rates from rate.sx.
 ;;
-;; TODO:
+;; To do:
 ;;
 ;; The table borders just don't work. I need to figure out how to
 ;; convert/strip/handle them.
