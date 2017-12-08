@@ -3,7 +3,7 @@
 
 ;; Author: Dave Pearson <davep@davep.org>
 ;; Version: 0.01
-;; Keywords: comm
+;; Keywords: comm, currency, bitcoin, money
 ;; URL: https://github.com/davep/rate-sx.el
 
 ;; This program is free software: you can redistribute it and/or modify it
