@@ -2,7 +2,7 @@
 ;; Copyright 2017 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
-;; Version: 0.01
+;; Version: 1.00
 ;; Keywords: comm, currency, bitcoin, money
 ;; URL: https://github.com/davep/rate-sx.el
 
