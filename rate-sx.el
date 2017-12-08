@@ -56,8 +56,8 @@
     (with-current-buffer rate-sx-buffer
       ;; TODO: Output still isn't right. What to do about the table
       ;; characters?
-      (insert (rate-sx-get))
-      (xterm-color-colorize-buffer))))
+      (insert (ansi-color-apply (rate-sx-get))))))
+
 
 (provide 'rate-sx)
 
