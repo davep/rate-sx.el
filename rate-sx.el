@@ -30,7 +30,7 @@
 
 ;;; Code:
 
-(require 'xterm-color)
+(require 'ansi-color)
 
 (defconst rate-sx-url "http://rate.sx/"
   "URL for rate.sx.")
