@@ -1,4 +1,4 @@
-;;; rate-sx.el --- Show currency rates from rate.sx
+;;; rate-sx.el --- Show currency rates from rate.sx -*- lexical-binding: t -*-
 ;; Copyright 2017 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
