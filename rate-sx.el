@@ -50,14 +50,18 @@
       (url-insert-file-contents rate-sx-url)
       (buffer-string))))
 
+(defun rate-sx-unboxify (s)
+  "Remove box drawing characters from S."
+  (replace-regexp-in-string "\x1b(0.+?\x1b(B"
+                            (lambda (match)
+                              (make-string (- (length match) 6) ?.))
+                            s))
+
 (defun rate-sx ()
   (interactive)
   (with-help-window rate-sx-buffer
     (with-current-buffer rate-sx-buffer
-      ;; TODO: Output still isn't right. What to do about the table
-      ;; characters?
-      (insert (ansi-color-apply (rate-sx-get))))))
-
+      (insert (rate-sx-unboxify (ansi-color-apply (rate-sx-get)))))))
 
 (provide 'rate-sx)
 
