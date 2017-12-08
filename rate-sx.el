@@ -45,19 +45,12 @@
       (url-insert-file-contents rate-sx-url)
       (buffer-string))))
 
-(defun rate-sx-unboxify (s)
-  "Remove box drawing characters from S."
-  (replace-regexp-in-string "\x1b(0.+?\x1b(B"
-                            (lambda (match)
-                              (make-string (- (length match) 6) ?.))
-                            s))
-
 (defun rate-sx ()
   "Show the current output of rate.sx in a new buffer."
   (interactive)
   (with-help-window rate-sx-buffer
     (with-current-buffer rate-sx-buffer
-      (insert (rate-sx-unboxify (ansi-color-apply (rate-sx-get)))))))
+      (insert (ansi-color-apply (rate-sx-get))))))
 
 (provide 'rate-sx)
 
