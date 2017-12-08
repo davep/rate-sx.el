@@ -58,6 +58,7 @@
                             s))
 
 (defun rate-sx ()
+  "Show the current output of rate.sx in a new buffer."
   (interactive)
   (with-help-window rate-sx-buffer
     (with-current-buffer rate-sx-buffer
