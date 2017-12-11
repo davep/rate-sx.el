@@ -22,16 +22,12 @@
 ;;; Commentary:
 ;;
 ;; rate-sx.el provides a command for showing currency rates from rate.sx.
-;;
-;; TODO:
-;;
-;; Support different non-crypto base rates (gbp.rate.sx, etc).
 
 ;;; Code:
 
 (require 'ansi-color)
 
-(defconst rate-sx-url "http://rate.sx/"
+(defconst rate-sx-url "http://%srate.sx/"
   "URL for rate.sx.")
 
 (defconst rate-sx-user-agent "rate-sx.el (https://github.com/davep/rate-sx.el) (curl)"
@@ -40,21 +36,52 @@
 (defconst rate-sx-buffer "*rate.sx*"
   "Name of the output buffer.")
 
-(defun rate-sx-get ()
+(defconst rate-sx-currencies
+  '(("USD" . "US Dollar")
+    ("AUD" . "Australian Dollar")
+    ("CAD" . "Canadian Dollar")
+    ("CHF" . "Swiss Franc")
+    ("CNY" . "Chinese Yuan")
+    ("EUR" . "Euro")
+    ("GBP" . "British Pound")
+    ("IDR" . "Indonesian Rupiah")
+    ("JPY" . "Japanese Yen")
+    ("KRW" . "South Korean Won")
+    ("RUB" . "Russian Ruble"))
+  "List of currencies that rate.sx can convert to.
+
+See http://rate.sx/:help for more details.")
+
+(defvar rate-sx-default-currency nil
+  "The default display currency when calling rate.sx.
+
+If `nil' the default currency as used by rate.sx itself will be
+used. See `rate-sx-currencies' or the help screen of rate.sx
+itself for more currency options.")
+
+(defun rate-sx-get (&optional currency)
   "Get the output from rate.sx."
   (let* ((url-mime-accept-string "text/plain")
          (url-request-extra-headers `(("User-Agent" . ,rate-sx-user-agent)))
          (url-show-status nil))
     (with-temp-buffer
-      (url-insert-file-contents rate-sx-url)
+      (url-insert-file-contents (format rate-sx-url
+                                        (if currency
+                                            (concat currency ".")
+                                          "")))
       (buffer-string))))
 
-(defun rate-sx ()
-  "Show the current output of rate.sx in a new buffer."
-  (interactive)
+(defun rate-sx (currency)
+  "Show the current output of rate.sx in a new buffer.
+
+If `currency' is non-nil, this command will prompt for a display currency."
+  (interactive
+   (list (if current-prefix-arg
+             (completing-read "Currency: " rate-sx-currencies nil t)
+           rate-sx-default-currency)))
   (with-help-window rate-sx-buffer
     (with-current-buffer rate-sx-buffer
-      (insert (ansi-color-apply (rate-sx-get))))))
+      (insert (ansi-color-apply (rate-sx-get currency))))))
 
 (provide 'rate-sx)
 
