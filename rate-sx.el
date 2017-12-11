@@ -55,12 +55,15 @@ See http://rate.sx/:help for more details.")
 (defvar rate-sx-default-currency nil
   "The default display currency when calling rate.sx.
 
-If `nil' the default currency as used by rate.sx itself will be
+If nil the default currency as used by rate.sx itself will be
 used. See `rate-sx-currencies' or the help screen of rate.sx
 itself for more currency options.")
 
 (defun rate-sx-get (&optional currency)
-  "Get the output from rate.sx."
+  "Get the output from rate.sx.
+
+Values will be acquired in CURRENCY, or the default currency of
+rate.sx will be used if one isn't supplied."
   (let* ((url-mime-accept-string "text/plain")
          (url-request-extra-headers `(("User-Agent" . ,rate-sx-user-agent)))
          (url-show-status nil))
@@ -74,7 +77,7 @@ itself for more currency options.")
 (defun rate-sx (currency)
   "Show the current output of rate.sx in a new buffer.
 
-If `currency' is non-nil, this command will prompt for a display currency."
+If CURRENCY is non-nil, this command will prompt for a display currency."
   (interactive
    (list (if current-prefix-arg
              (completing-read "Currency: " rate-sx-currencies nil t)
