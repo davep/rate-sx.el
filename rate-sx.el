@@ -102,6 +102,11 @@ The result is given in `rate-sx-default-currency'."
   (interactive "r")
   (rate-sx-calc (buffer-substring-no-properties start end)))
 
+;;;###autoload
+(defun rate-sx-calc-maybe-region ()
+  (interactive)
+  (call-interactively (if mark-active #'rate-sx-calc-region #'rate-sx-calc)))
+
 (provide 'rate-sx)
 
 ;;; rate-sx.el ends here
