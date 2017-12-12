@@ -26,8 +26,9 @@
 ;;; Code:
 
 (require 'ansi-color)
+(require 'url-util)
 
-(defconst rate-sx-url "http://%srate.sx/"
+(defconst rate-sx-url "http://%srate.sx/%s"
   "URL for rate.sx.")
 
 (defconst rate-sx-user-agent "rate-sx.el (https://github.com/davep/rate-sx.el) (curl)"
@@ -59,7 +60,7 @@ If nil the default currency as used by rate.sx itself will be
 used. See `rate-sx-currencies' or the help screen of rate.sx
 itself for more currency options.")
 
-(defun rate-sx-get (&optional currency)
+(defun rate-sx-get (&optional currency params)
   "Get the output from rate.sx.
 
 Values will be acquired in CURRENCY, or the default currency of
@@ -71,7 +72,8 @@ rate.sx will be used if one isn't supplied."
       (url-insert-file-contents (format rate-sx-url
                                         (if currency
                                             (concat currency ".")
-                                          "")))
+                                          "")
+                                        (or params "")))
       (buffer-string))))
 
 ;;;###autoload
@@ -86,6 +88,13 @@ If CURRENCY is non-nil, this command will prompt for a display currency."
   (with-help-window rate-sx-buffer
     (with-current-buffer rate-sx-buffer
       (insert (ansi-color-apply (rate-sx-get currency))))))
+
+(defun rate-sx-calc (calc)
+  "Evaluate CALC via rate.sx.
+
+The result is given in `rate-sx-default-currency'."
+  (interactive "sCalc: ")
+  (message "Result: %s" (string-trim (rate-sx-get rate-sx-default-currency (url-hexify-string calc)))))
 
 (provide 'rate-sx)
 
