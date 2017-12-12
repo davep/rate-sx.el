@@ -97,6 +97,11 @@ The result is given in `rate-sx-default-currency'."
   (interactive "sCalc: ")
   (message "Result: %s" (string-trim (rate-sx-get rate-sx-default-currency (url-hexify-string calc)))))
 
+;;;###autoload
+(defun rate-sx-calc-region (start end)
+  (interactive "r")
+  (rate-sx-calc (buffer-substring-no-properties start end)))
+
 (provide 'rate-sx)
 
 ;;; rate-sx.el ends here
