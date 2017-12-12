@@ -5,6 +5,7 @@
 ;; Version: 1.2
 ;; Keywords: comm, currency, bitcoin, money
 ;; URL: https://github.com/davep/rate-sx.el
+;; Package-Requires: ((emacs "24.4"))
 
 ;; This program is free software: you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the
