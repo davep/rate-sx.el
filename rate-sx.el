@@ -31,8 +31,8 @@
 ;; `rate-sx-calc'
 ;;
 ;; Show the result of a currency calculation in the minibuffer. Calculations
-;; are things like `1BTC+12ETH` (would show the total value, in the base
-;; currency defined by `rate-sx-default-currency`, of holding 1 BTC and 12
+;; are things like "1BTC+12ETH" (would show the total value, in the base
+;; currency defined by `rate-sx-default-currency', of holding 1 BTC and 12
 ;; ETH).
 ;;
 ;; `rate-sx-calc-region'
@@ -41,8 +41,8 @@
 ;;
 ;; `rate-sx-calc-maybe-region'
 ;;
-;; Same as above again, but performs `rate-sx-calc-region` if there is an
-;; active mark, otherwise it performs `rate-sx-calc`.
+;; Same as above again, but performs `rate-sx-calc-region' if there is an
+;; active mark, otherwise it performs `rate-sx-calc'.
 
 ;;; Code:
 
