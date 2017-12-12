@@ -89,6 +89,7 @@ If CURRENCY is non-nil, this command will prompt for a display currency."
     (with-current-buffer rate-sx-buffer
       (insert (ansi-color-apply (rate-sx-get currency))))))
 
+;;;###autoload
 (defun rate-sx-calc (calc)
   "Evaluate CALC via rate.sx.
 
