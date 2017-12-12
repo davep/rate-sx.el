@@ -74,6 +74,7 @@ rate.sx will be used if one isn't supplied."
                                           "")))
       (buffer-string))))
 
+;;;###autoload
 (defun rate-sx (currency)
   "Show the current output of rate.sx in a new buffer.
 
