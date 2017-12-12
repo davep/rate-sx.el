@@ -64,7 +64,9 @@ itself for more currency options.")
   "Get the output from rate.sx.
 
 Values will be acquired in CURRENCY, or the default currency of
-rate.sx will be used if one isn't supplied."
+rate.sx will be used if one isn't supplied.
+
+PARAMS will be added to the end of `rate-sx-url' if they are supplied."
   (let* ((url-mime-accept-string "text/plain")
          (url-request-extra-headers `(("User-Agent" . ,rate-sx-user-agent)))
          (url-show-status nil))
@@ -99,11 +101,15 @@ The result is given in `rate-sx-default-currency'."
 
 ;;;###autoload
 (defun rate-sx-calc-region (start end)
+  "Perform `rate-sx-calc' on text in region START to END."
   (interactive "r")
   (rate-sx-calc (buffer-substring-no-properties start end)))
 
 ;;;###autoload
 (defun rate-sx-calc-maybe-region ()
+  "Perform a rate calculation on a region if one is active.
+
+If one isn't active, prompt for the calculation."
   (interactive)
   (call-interactively (if mark-active #'rate-sx-calc-region #'rate-sx-calc)))
 
