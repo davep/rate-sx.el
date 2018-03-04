@@ -69,7 +69,7 @@ See http://rate.sx/:help for more details.")
   "The default display currency when calling rate.sx.
 
 If nil the default currency as used by rate.sx itself will be
-used. See `rate-sx-currencies' or the help screen of rate.sx
+used. See function `rate-sx-currencies' or the help screen of rate.sx
 itself for more currency options.")
 
 (defun rate-sx-get (&optional currency params)
@@ -91,7 +91,7 @@ PARAMS will be added to the end of `rate-sx-url' if they are supplied."
       (buffer-string))))
 
 (defun rate-sx-currencies-to-alist (rates)
-  "Convert the rates list from rate.sx into an assoc list."
+  "Convert RATES list from rate.sx into an assoc list."
   (let ((arates))
     (while rates
       (when (not (string= "" (car rates)))
