@@ -61,7 +61,8 @@
 (defvar rate-sx-currencies nil
   "List of currencies that rate.sx can convert to.
 
-Don't use this directly. Use the function of the same name instead.
+Don't use this directly. Use the function `rate-sx-currencies`
+instead.
 
 See http://rate.sx/:help for more details.")
 
