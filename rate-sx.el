@@ -1,5 +1,5 @@
 ;;; rate-sx.el --- Show currency rates from rate.sx -*- lexical-binding: t -*-
-;; Copyright 2017 by Dave Pearson <davep@davep.org>
+;; Copyright 2017-2018 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
 ;; Version: 1.3
@@ -58,19 +58,10 @@
 (defconst rate-sx-buffer "*rate.sx*"
   "Name of the output buffer.")
 
-(defconst rate-sx-currencies
-  '(("USD" . "US Dollar")
-    ("AUD" . "Australian Dollar")
-    ("CAD" . "Canadian Dollar")
-    ("CHF" . "Swiss Franc")
-    ("CNY" . "Chinese Yuan")
-    ("EUR" . "Euro")
-    ("GBP" . "British Pound")
-    ("IDR" . "Indonesian Rupiah")
-    ("JPY" . "Japanese Yen")
-    ("KRW" . "South Korean Won")
-    ("RUB" . "Russian Ruble"))
+(defvar rate-sx-currencies nil
   "List of currencies that rate.sx can convert to.
+
+Don't use this directly. Use the function of the same name instead.
 
 See http://rate.sx/:help for more details.")
 
@@ -98,6 +89,23 @@ PARAMS will be added to the end of `rate-sx-url' if they are supplied."
                                           "")
                                         (or params "")))
       (buffer-string))))
+
+(defun rate-sx-currencies-to-alist (rates)
+  "Convert the rates list from rate.sx into an assoc list."
+  (let ((arates))
+    (while rates
+      (when (not (string= "" (car rates)))
+        (setq arates (append arates (list (cons (car rates) (cadr rates))))))
+      (setq rates (cddr rates)))
+    arates))
+
+(defun rate-sx-get-currencies ()
+  "Get the currency list from the rate.sx site."
+  (rate-sx-currencies-to-alist (split-string (rate-sx-get nil ":currencies") "\\(    \\|\n\\)")))
+
+(defun rate-sx-currencies ()
+  "Return the list of (non-crypto) currencies."
+  (or rate-sx-currencies (setq rate-sx-currencies (rate-sx-get-currencies))))
 
 ;;;###autoload
 (defun rate-sx (currency)
